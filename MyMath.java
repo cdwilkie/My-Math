@@ -12,14 +12,11 @@ public class MyMath {
      * toDegrees() takes a double value representing an angle
      * expressed in radians and returns that same angle's representation
      * in degrees.<p>Calculated using ratio 360 degrees = 2 * pi radians,
-     * where pi {@link #PI_CONSTANT} has value {@value #PI_CONSTANT}.
+     * where pi has value {@value #PI_CONSTANT}.
      * @param angleRadians Double value representing angle in radians
      * @return Double primitive value of angle expressed in degrees
      */
     public static double toDegrees(double angleRadians) {
-        //360 degrees = 2 * pi radians
-        // 360/2pi = 1 radian
-        //180/pi = 1 radian
         double angleDegrees = (180 / PI_CONSTANT) * angleRadians;
         return angleDegrees;
     }//end toDegrees()
@@ -54,18 +51,35 @@ public class MyMath {
     /**
      * minium() accepts as parameters two arbitrary double values and then
      * returns the smaller value of the two as a double. If the values are the
-     * * same, the second parameter is returned.
+     * same, the first parameter is returned.
      * @param inputValue1 Primative double representing any arbitrary value
      * @param inputValue2 Primative double representing any arbitrary value
      * @return Primative double that is the minium of the passed parameters.
      */
     public static double minimum(double inputValue1, double inputValue2) {
-        if (inputValue2 <= inputValue1) {
-            return inputValue2;
-        }//end if inputValue2 Smallest
-        else {
+        if (inputValue1 <= inputValue2) {
             return inputValue1;
-        }//end else inputValue1 smallest
+        }//end if inputValue1 Smallest
+        else {
+            return inputValue2;
+        }//end else inputValue2 smallest
     }//end minimum()
+
+    /**
+     * maximum() accepts any two arbitrary double values and returns the
+     * larger value of the two, as a double. If the values are the same,
+     * the first parameter is returned.
+     * @param inputValue1 Primative double representing any arbitrary value
+     * @param inputValue2 Any arbitrary double value.
+     * @return Maximum value of two passed parameters, as a double.
+     */
+    public static double maximum(double inputValue1, double inputValue2) {
+        if (inputValue1 >= inputValue2) {
+            return inputValue1;
+        }//end if inputValue 1 max
+        else {
+            return inputValue2;
+        }//end else inputValue2 max
+    }//end maximum()
     
-}
+}//end MyMath
