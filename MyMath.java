@@ -37,17 +37,17 @@ public class MyMath {
     }//end toRadians()
 
     /**
-     * absoluteValue()
-     * @param inputValue
-     * @return
+     * absoluteValue() accepts as input a double that represents
+     * any arbitrary value. The absolute value is returned as a double.
+     * @param inputValue Double primitive representing any arbitrary value
+     * @return Double primitive representing the absolute value of the input.
      */
     public static double absoluteValue(double inputValue) {
         if (inputValue < 0) {
             return inputValue * -1;
-        }
-        else if (inputValue == 0) {
-            return 0;
-        }
-        return inputValue;
-    }
+        }//end if value negative
+        else {
+            return inputValue;
+        }//end else absolute = input
+    }//end absoluteValue()
 }
