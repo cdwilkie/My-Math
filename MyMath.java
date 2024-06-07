@@ -81,5 +81,29 @@ public class MyMath {
             return inputValue2;
         }//end else inputValue2 max
     }//end maximum()
+
+    /**
+     * power() accepts two double parameters, a baseInput and
+     * an exponenetInput to calculate the exponential value of 
+     * the base raised to the exponent. Expects baseInput to be
+     * greater than or equal to zero.
+     * @param baseInput Primative double representing the base of an
+     * exponential calculation
+     * @param exponentInput Primative double representing the 
+     * exponent in an exponential calculation
+     * @return Primative double representing the calculated exponential
+     * value of the baseInput and exponentInput.
+     */
+    public static double power(double baseInput, int exponentInput) {
+        double powerResults = 1;
+        //a^0 = 1
+        //a^1 = a
+        //loop through to calculate results
+        // a^b. for loop 0 -> size
+        for (int i = 1; i <= exponentInput; ++i) {
+            powerResults *= baseInput;
+        }//for iterating to exponentInput
+        return powerResults;
+    }//end power()
     
 }//end MyMath
