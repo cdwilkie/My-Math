@@ -50,4 +50,22 @@ public class MyMath {
             return inputValue;
         }//end else absolute = input
     }//end absoluteValue()
+
+    /**
+     * minium() accepts as parameters two arbitrary double values and then
+     * returns the smaller value of the two as a double. If the values are the
+     * * same, the second parameter is returned.
+     * @param inputValue1 Primative double representing any arbitrary value
+     * @param inputValue2 Primative double representing any arbitrary value
+     * @return Primative double that is the minium of the passed parameters.
+     */
+    public static double minimum(double inputValue1, double inputValue2) {
+        if (inputValue2 <= inputValue1) {
+            return inputValue2;
+        }//end if inputValue2 Smallest
+        else {
+            return inputValue1;
+        }//end else inputValue1 smallest
+    }//end minimum()
+    
 }
