@@ -1,10 +1,11 @@
 /**
  * MyMath reimplements a portion of functionality
- * of the Java Math class.<p>
+ * of the Java Math class {@link java.lang.Math}<p>
  * Functions include
+ * @see java.lang.Math
  */
 public class MyMath {
-    /**Pi representation for class */
+    /**Pi representation for MyMath class */
     static final double PI_CONSTANT = 3.141592653589793d;
 
     /**
@@ -23,4 +24,30 @@ public class MyMath {
         return angleDegrees;
     }//end toDegrees()
 
+    /**
+     * toRadians() accepts a double representing the measured degrees
+     * of an angle. Value is converted into radians using the ratio:<p>
+     * 360 degrees = 2 * pi radians<p>Where pi is represented as {@value #PI_CONSTANT}
+     * @param angleDegree Primitive double that represents the degrees of an angle
+     * @return Primitive double that represents the radians of converted degrees.
+     */
+    public static double toRadians(double angleDegree) {
+        double angleRadians = (PI_CONSTANT / 180) * angleDegree;
+        return angleRadians;
+    }//end toRadians()
+
+    /**
+     * absoluteValue()
+     * @param inputValue
+     * @return
+     */
+    public static double absoluteValue(double inputValue) {
+        if (inputValue < 0) {
+            return inputValue * -1;
+        }
+        else if (inputValue == 0) {
+            return 0;
+        }
+        return inputValue;
+    }
 }
