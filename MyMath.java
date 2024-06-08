@@ -83,13 +83,12 @@ public class MyMath {
     }//end maximum()
 
     /**
-     * power() accepts two double parameters, a baseInput and
-     * an exponenetInput to calculate the exponential value of 
-     * the base raised to the exponent. Expects baseInput to be
-     * greater than or equal to zero.
+     * power() accepts a baseInput double and an int
+     * xponenetInput to calculate the exponential value of 
+     * the base raised to the exponent. 
      * @param baseInput Primative double representing the base of an
      * exponential calculation
-     * @param exponentInput Primative double representing the 
+     * @param exponentInput Primative int representing the 
      * exponent in an exponential calculation
      * @return Primative double representing the calculated exponential
      * value of the baseInput and exponentInput.
@@ -105,12 +104,23 @@ public class MyMath {
         }//for iterating to exponentInput
         if (exponentInput >= 0) {
             return powerResults;
-        }
+        }//if exponent is positive
         else {
             return (1 / powerResults);
-        }
+        }//else exponent negative
     }//end power()
 
+    /**
+     * root() accepts a double radicandInput and an int
+     * rootInput to determin the root of the radicand.
+     * Iteratively calculates probably root using
+     * Newton's Method
+     * <p>Utilizes MyMath {@link #power(double,int)} and 
+     * {@link #absoluteValue(double)} method
+     * @param radicandInput Primitive double that holds the base radicand
+     * @param rootInput Primitive int that holds the root value
+     * @return Primitive double holding the
+     */
     public static double root(double radicandInput, int rootInput) {
         //g' = g(1) -  g(1)^root - radicand  /  rootInput * g(1) ^ rootINput -1
         double initialGuess = 1, guessPrime = 1;
@@ -123,12 +133,12 @@ public class MyMath {
             guessPrime = initialGuess - (topNum/botNum);
             if (absoluteValue(guessPrime - initialGuess) < power(10, -10)) {
                 return guessPrime;
-            }
+            }//end if guessPrime is statistically close
             else {
                 initialGuess = guessPrime;
                 continue;
-            }
-        }
-    }
+            }//end else iterate again
+        }//end while calculating root
+    }//end root()
     
 }//end MyMath
