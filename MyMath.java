@@ -113,7 +113,7 @@ public class MyMath {
     /**
      * root() accepts a double radicandInput and an int
      * rootInput to determin the root of the radicand.
-     * Iteratively calculates probably root using
+     * Iteratively calculates probable root using
      * Newton's Method
      * <p>Utilizes MyMath {@link #power(double,int)} and 
      * {@link #absoluteValue(double)} method
@@ -122,23 +122,53 @@ public class MyMath {
      * @return Primitive double holding the
      */
     public static double root(double radicandInput, int rootInput) {
-        //g' = g(1) -  g(1)^root - radicand  /  rootInput * g(1) ^ rootINput -1
-        double initialGuess = 1, guessPrime = 1;
-        //helper vars
-        double topNum, botNum;
-        
-        while (true) {
-            topNum = power(initialGuess, rootInput) - radicandInput;
-            botNum = rootInput * power(initialGuess,(rootInput - 1));
-            guessPrime = initialGuess - (topNum/botNum);
-            if (absoluteValue(guessPrime - initialGuess) < power(10, -10)) {
-                return guessPrime;
-            }//end if guessPrime is statistically close
-            else {
-                initialGuess = guessPrime;
-                continue;
-            }//end else iterate again
-        }//end while calculating root
+        //g' = g(1) -  ((g(1) ^ root) - radicand  /  rootInput * g(1) ^ (rootInput - 1)))
+        double initialGuess = 1;
+        double estimatedRoot = newtonsRecursion(radicandInput, rootInput, initialGuess);
+        return estimatedRoot;
     }//end root()
+
+    private static double newtonsRecursion(double radicandInput, int rootInput, double initialGuess) {
+        double estimatedRoot = newtonsHelper(radicandInput, rootInput, initialGuess);
+        boolean rootFound = newtonsChecker(initialGuess, estimatedRoot);
+        if (rootFound) {
+            return estimatedRoot;
+        }
+        else {
+            return newtonsRecursion(radicandInput, rootInput, estimatedRoot);
+        }
+    }
+    private static double newtonsHelper(double radicandInput, int rootInput, double initialGuess) {
+        double topNumber, bottomNumber, calculatedGuess;
+        topNumber = power(initialGuess, rootInput) - radicandInput;
+        bottomNumber = rootInput * power(initialGuess, (rootInput - 1));
+        calculatedGuess = initialGuess - (topNumber / bottomNumber);
+        return calculatedGuess;
+    }
+
+    private static boolean newtonsChecker(double initialGuess, double calculatedGuess) {
+        if (absoluteValue(calculatedGuess - initialGuess) < power(10, -10)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
+
+
+    public static int gcd(int value1, int value2) {
+        if (value2 == 0){
+            return value1;
+        }
+        else if (value1 == 0) {
+            return value2;
+        }
+        else {
+            return gcd(value2, value1 % value2);
+        }
+    }
     
 }//end MyMath
