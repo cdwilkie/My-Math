@@ -196,13 +196,13 @@ public class MyMath {
     public static int gcd(int value1, int value2) {
         if (value2 == 0){
             return value1;
-        }
+        }//end if value1 is gcd
         else if (value1 == 0) {
             return value2;
-        }
+        }//end elses if value2 is gcd
         else {
             return gcd(value2, value1 % value2);
-        }
+        }//else recurse
     }//end gcd()
 
 }//end MyMath
