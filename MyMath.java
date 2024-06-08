@@ -113,13 +113,13 @@ public class MyMath {
     /**
      * root() accepts a double radicandInput and an int
      * rootInput to determin the root of the radicand.
-     * Iteratively calculates probable root using
+     * Recursively calculates probable root using
      * Newton's Method
-     * <p>Utilizes MyMath {@link #power(double,int)} and 
-     * {@link #absoluteValue(double)} method
+     * <p>Utilizes {@link #newtonsRecursion(double, int, double)} helper
+     * to calculate the estimated root value.
      * @param radicandInput Primitive double that holds the base radicand
      * @param rootInput Primitive int that holds the root value
-     * @return Primitive double holding the
+     * @return Primitive double holding the root solution
      */
     public static double root(double radicandInput, int rootInput) {
         //g' = g(1) -  ((g(1) ^ root) - radicand  /  rootInput * g(1) ^ (rootInput - 1)))
@@ -128,37 +128,71 @@ public class MyMath {
         return estimatedRoot;
     }//end root()
 
-    private static double newtonsRecursion(double radicandInput, int rootInput, double initialGuess) {
-        double estimatedRoot = newtonsHelper(radicandInput, rootInput, initialGuess);
-        boolean rootFound = newtonsChecker(initialGuess, estimatedRoot);
+    /**
+     * newtonsRecursion drives the recursion in implementing
+     * Newton's Method to estimate root values.<p>Calls Helper methods
+     * {@link #newtonsHelper(double, int, double)} and {@link #newtonsChecker(double, double)}
+     * @param radicandInput Primitive double holding base radicand value
+     * @param rootInput Primitive int holding root index value
+     * @param currentGuess Primitive double holding current estimated root
+     * @return Primitive double holding the current esitmated root
+     */
+    private static double newtonsRecursion(double radicandInput, int rootInput, double currentGuess) {
+        double estimatedRoot = newtonsHelper(radicandInput, rootInput, currentGuess);
+        boolean rootFound = newtonsChecker(currentGuess, estimatedRoot);
         if (rootFound) {
             return estimatedRoot;
-        }
+        }//if root found
         else {
             return newtonsRecursion(radicandInput, rootInput, estimatedRoot);
-        }
-    }
-    private static double newtonsHelper(double radicandInput, int rootInput, double initialGuess) {
-        double topNumber, bottomNumber, calculatedGuess;
-        topNumber = power(initialGuess, rootInput) - radicandInput;
-        bottomNumber = rootInput * power(initialGuess, (rootInput - 1));
-        calculatedGuess = initialGuess - (topNumber / bottomNumber);
-        return calculatedGuess;
-    }
+        }//else root not found - recurse
+    }//end newtonsRecursion()
 
-    private static boolean newtonsChecker(double initialGuess, double calculatedGuess) {
-        if (absoluteValue(calculatedGuess - initialGuess) < power(10, -10)){
+    /**
+     * newtonsHelper() performs the essential calculation to implement 
+     * Newton's Method. Calculates the number for the sequence of convergence
+     * to determine the value of the desired root.
+     * @param radicandInput Primitive double value holding base radicand
+     * @param rootInput Primitive int value holding root index
+     * @param currentGuess Primitive double value holding the current guess for root
+     * @return Primitive double holding the calculated guess for the root
+     */
+    private static double newtonsHelper(double radicandInput, int rootInput, double currentGuess) {
+        double topNumber, bottomNumber, calculatedGuess;
+        topNumber = power(currentGuess, rootInput) - radicandInput;
+        bottomNumber = rootInput * power(currentGuess, (rootInput - 1));
+        calculatedGuess = currentGuess - (topNumber / bottomNumber);
+        return calculatedGuess;
+    }//end newtonsHelper()
+
+    /**
+     * newtonsChecker() performs the boolean check to determine
+     * if the estimated root is significantly close to the
+     * current guess.
+     * @param currentGuess Primitive double that holds the current root guess
+     * @param estimatedRoot Primitive double that holds the current
+     * calculated root estimate
+     * @return Boolean whether estimatedRoot is significantly close to
+     * currentGuess
+     */
+    private static boolean newtonsChecker(double currentGuess, double estimatedRoot) {
+        if (absoluteValue(estimatedRoot - currentGuess) < power(10, -10)){
             return true;
-        }
+        }//end if estimated root likely
         else {
             return false;
-        }
-    }
+        }//end else estimated root unlikely
+    }//end newtonsChecker()
 
-
-
-
-
+    /**
+     * gcd() accepts two arbitrary int values to determine
+     * the greatest common divisor.<p>If one parameter is zero,
+     * other parameter is returned. Recursively calculates
+     * the gcd(value2, value1%value2)
+     * @param value1 Primitive int holding arbitrary value
+     * @param value2 Primitive int holding arbitrary value
+     * @return Primitive int holding greatest common divisor
+     */
     public static int gcd(int value1, int value2) {
         if (value2 == 0){
             return value1;
@@ -169,6 +203,6 @@ public class MyMath {
         else {
             return gcd(value2, value1 % value2);
         }
-    }
-    
+    }//end gcd()
+
 }//end MyMath
