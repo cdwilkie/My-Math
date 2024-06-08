@@ -100,10 +100,35 @@ public class MyMath {
         //a^1 = a
         //loop through to calculate results
         // a^b. for loop 0 -> size
-        for (int i = 1; i <= exponentInput; ++i) {
+        for (int i = 1; i <= absoluteValue(exponentInput); ++i) {
             powerResults *= baseInput;
         }//for iterating to exponentInput
-        return powerResults;
+        if (exponentInput >= 0) {
+            return powerResults;
+        }
+        else {
+            return (1 / powerResults);
+        }
     }//end power()
+
+    public static double root(double radicandInput, int rootInput) {
+        //g' = g(1) -  g(1)^root - radicand  /  rootInput * g(1) ^ rootINput -1
+        double initialGuess = 1, guessPrime = 1;
+        //helper vars
+        double topNum, botNum;
+        
+        while (true) {
+            topNum = power(initialGuess, rootInput) - radicandInput;
+            botNum = rootInput * power(initialGuess,(rootInput - 1));
+            guessPrime = initialGuess - (topNum/botNum);
+            if (absoluteValue(guessPrime - initialGuess) < power(10, -10)) {
+                return guessPrime;
+            }
+            else {
+                initialGuess = guessPrime;
+                continue;
+            }
+        }
+    }
     
 }//end MyMath
