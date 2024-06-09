@@ -215,9 +215,65 @@ public class MyMath {
         }//else recurse
     }//end gcd()
 
+    /**
+     * lcm() method accepts two ints representing any arbitrary
+     * value. Calculates the least common multiple my determining the
+     * greatest common divisor of the two values and then dividing the
+     * product of value1 and value2 by the gcd.
+     * @see #gcd(int, int)
+     * @param value1 Primitive int that represents any arbitrary value
+     * @param value2 Primative int that represents any arbritrary value
+     * @return primitive int representing the calculated least common
+     * multiple of value1 and value2.
+     */
     public static int lcm(int value1, int value2) {
         //lcm(a,b) = (ab)/(gcd(a,b));
         return ((value1 * value2) / gcd(value1, value2));
-    }
+    }//end lcm()
+
+    /**
+     * sine() accepts a primitive double value representing amount of
+     * radians in some angle. If the value is between -{@value #PI_CONSTANT}
+     * and {@value #PI_CONSTANT}, the sine value is approximated through
+     * summation.
+     * @see #sineHelper(double)
+     * @param angleRadians Primitive double value represnting an angle in radians
+     * @return Primitive double representing the approximate sine value
+     */
+    public static double sine(double angleRadians) {
+        // angleRadians must be between -PI_CONSTANT and PI_CONSTANT
+        while (angleRadians < -PI_CONSTANT) {
+            angleRadians += (2 * PI_CONSTANT);
+        }//while angleRadians too small
+        while (angleRadians > PI_CONSTANT) {
+            angleRadians -= (2 * PI_CONSTANT);
+        }//while angleRadians too large
+
+        double sineValue = sineHelper(angleRadians);
+        return sineValue;
+    }//end sine()
+
+    /**
+     * sineHelper() accepts a primitive double value angleRadians
+     * and calculates the summation to obtain the approximate
+     * sine value of the angleRadians parameter.
+     * @param angleRadians Primitive double representing an angle in radians
+     * @return Primitive double representing the approximate sine value
+     */
+    private static double sineHelper(double angleRadians) {
+        double currentTerm, nextTerm, totalSum;
+        double denomNum;
+        int counter = 0;
+        currentTerm = nextTerm = angleRadians;
+        totalSum = angleRadians;
+        while (absoluteValue(nextTerm) > power(10, -10)) {
+            denomNum = ((2 * counter) + 3) * ((2 * counter) + 2);
+            nextTerm = (currentTerm) * ((-power(angleRadians,2)) / denomNum); 
+            totalSum += nextTerm;
+            currentTerm = nextTerm;
+            counter++;
+        }//while final term too large
+        return totalSum;
+    }//end sineHelper()
 
 }//end MyMath
