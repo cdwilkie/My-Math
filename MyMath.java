@@ -1,3 +1,4 @@
+import java.util.*;
 /**
  * MyMath reimplements a portion of functionality
  * of the Java Math class {@link java.lang.Math}<p>
@@ -261,6 +262,20 @@ public class MyMath {
      * @return Primitive double representing the approximate sine value
      */
     private static double sineHelper(double angleRadians) {
+        double currentTerm = angleRadians;
+        ArrayList<Double> sineSum = new ArrayList<Double>();
+        int counter = 0;
+        sineSum.add(currentTerm);
+        while (absoluteValue(currentTerm) > power(10, -10)) {
+            double nextTerm = currentTerm * ((-(power(angleRadians,2))) / (((2 * counter) + 3) * ((2 * counter) + 2)));
+            sineSum.add(nextTerm);
+            currentTerm = nextTerm;
+            counter++;
+        }
+        double sineValue = sineHelperCalc(sineSum);
+        return sineValue;
+    
+        /* 
         double currentTerm, nextTerm, totalSum;
         double denomNum;
         int counter = 0;
@@ -274,7 +289,17 @@ public class MyMath {
             counter++;
         }//while final term too large
         return totalSum;
+        */
     }//end sineHelper()
+
+    private static double sineHelperCalc(ArrayList<Double> sineSumation) {
+        double sineValue = 0;
+        for (Double value : sineSumation ) {
+            
+            sineValue += value;
+        }
+        return sineValue;
+    }    
 
     public static double cosine(double angleRadians) {
         
