@@ -99,6 +99,7 @@ public class MyMath {
         //a^1 = a
         //loop through to calculate results
         // a^b. for loop 0 -> size
+        //TODO: Implement faster algorithm
         /*
          * while (exponent > 0) {
             if (exponent % 2 == 1) {
@@ -213,5 +214,10 @@ public class MyMath {
             return gcd(value2, value1 % value2);
         }//else recurse
     }//end gcd()
+
+    public static int lcm(int value1, int value2) {
+        //lcm(a,b) = (ab)/(gcd(a,b));
+        return ((value1 * value2) / gcd(value1, value2));
+    }
 
 }//end MyMath
