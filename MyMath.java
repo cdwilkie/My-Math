@@ -6,15 +6,15 @@
  */
 public class MyMath {
     /**Pi representation for MyMath class */
-    static final double PI_CONSTANT = 3.141592653589793d;
-    static final double RADIANS_IN_DEGREE = PI_CONSTANT / 180; //One Radian
-    static final double DEGREES_IN_RADIAN = 180 / PI_CONSTANT; //One Degree
+    static final double PI = 3.141592653589793d;
+    static final double RADIANS_IN_DEGREE = PI / 180; //One Radian
+    static final double DEGREES_IN_RADIAN = 180 / PI; //One Degree
 
     /**
      * toDegrees() takes a double value representing an angle
      * expressed in radians and returns that same angle's representation
      * in degrees.<p>Calculated using ratio 360 degrees = 2 * pi radians,
-     * where pi has value {@value #PI_CONSTANT}.
+     * where pi has value {@value #PI}.
      * @param angleRadians Double value representing angle in radians
      * @return Double primitive value of angle expressed in degrees
      */
@@ -25,7 +25,7 @@ public class MyMath {
     /**
      * toRadians() accepts a double representing the measured degrees
      * of an angle. Value is converted into radians using the ratio:<p>
-     * 360 degrees = 2 * pi radians<p>Where pi is represented as {@value #PI_CONSTANT}
+     * 360 degrees = 2 * pi radians<p>Where pi is represented as {@value #PI}
      * @param angleDegree Primitive double that represents the degrees of an angle
      * @return Primitive double that represents the radians of converted degrees.
      */
@@ -233,8 +233,8 @@ public class MyMath {
 
     /**
      * sine() accepts a primitive double value representing amount of
-     * radians in some angle. If the value is between -{@value #PI_CONSTANT}
-     * and {@value #PI_CONSTANT}, the sine value is approximated through
+     * radians in some angle. If the value is between -{@value #PI}
+     * and {@value #PI}, the sine value is approximated through
      * summation.
      * @see #sineHelper(double)
      * @param angleRadians Primitive double value represnting an angle in radians
@@ -242,11 +242,11 @@ public class MyMath {
      */
     public static double sine(double angleRadians) {
         // angleRadians must be between -PI_CONSTANT and PI_CONSTANT
-        while (angleRadians < -PI_CONSTANT) {
-            angleRadians += (2 * PI_CONSTANT);
+        while (angleRadians < -PI) {
+            angleRadians += (2 * PI);
         }//while angleRadians too small
-        while (angleRadians > PI_CONSTANT) {
-            angleRadians -= (2 * PI_CONSTANT);
+        while (angleRadians > PI) {
+            angleRadians -= (2 * PI);
         }//while angleRadians too large
 
         double sineValue = sineHelper(angleRadians);
@@ -275,5 +275,43 @@ public class MyMath {
         }//while final term too large
         return totalSum;
     }//end sineHelper()
+
+    public static double cosine(double angleRadians) {
+        
+        // angleRadians must be between -PI_CONSTANT and PI_CONSTANT
+        while (angleRadians < -PI) {
+            angleRadians += (2 * PI);
+        }//while angleRadians too small
+        while (angleRadians > PI) {
+            angleRadians -= (2 * PI);
+        }//while angleRadians too large
+
+        double cosineValue = cosineHelper(angleRadians);
+
+        return cosineValue;
+
+    }
+
+    private static double cosineHelper(double angleRadians) {
+        double currentTerm, nextTerm, totalSum;
+        double denomNum;
+        int counter = 0;
+        currentTerm = nextTerm = 1;
+        totalSum = 1;
+        while (absoluteValue(nextTerm) > power(10, -10)) {
+            denomNum = ((2 * counter) + 2) * ((2 * counter) + 1);
+            nextTerm = (currentTerm) * ((-power(angleRadians,2)) / denomNum); 
+            totalSum += nextTerm;
+            currentTerm = nextTerm;
+            counter++;
+        }//while final term too large
+        return totalSum;
+    }
+
+    public static double tangent(double angleRadians) {
+        double tangentValue = sine(angleRadians) / cosine(angleRadians);
+        return tangentValue;
+    }
+
 
 }//end MyMath
