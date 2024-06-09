@@ -7,6 +7,8 @@
 public class MyMath {
     /**Pi representation for MyMath class */
     static final double PI_CONSTANT = 3.141592653589793d;
+    static final double RADIANS_IN_DEGREE = PI_CONSTANT / 180; //One Radian
+    static final double DEGREES_IN_RADIAN = 180 / PI_CONSTANT; //One Degree
 
     /**
      * toDegrees() takes a double value representing an angle
@@ -17,8 +19,7 @@ public class MyMath {
      * @return Double primitive value of angle expressed in degrees
      */
     public static double toDegrees(double angleRadians) {
-        double angleDegrees = (180 / PI_CONSTANT) * angleRadians;
-        return angleDegrees;
+        return DEGREES_IN_RADIAN * angleRadians;
     }//end toDegrees()
 
     /**
@@ -29,8 +30,7 @@ public class MyMath {
      * @return Primitive double that represents the radians of converted degrees.
      */
     public static double toRadians(double angleDegree) {
-        double angleRadians = (PI_CONSTANT / 180) * angleDegree;
-        return angleRadians;
+        return RADIANS_IN_DEGREE * angleDegree;
     }//end toRadians()
 
     /**
@@ -41,7 +41,7 @@ public class MyMath {
      */
     public static double absoluteValue(double inputValue) {
         if (inputValue < 0) {
-            return inputValue * -1;
+            return inputValue * (-1);
         }//end if value negative
         else {
             return inputValue;
@@ -99,6 +99,15 @@ public class MyMath {
         //a^1 = a
         //loop through to calculate results
         // a^b. for loop 0 -> size
+        /*
+         * while (exponent > 0) {
+            if (exponent % 2 == 1) {
+                result *= currentBase;
+            }
+            currentBase *= currentBase;
+            exponent /= 2;
+        }
+         */
         for (int i = 1; i <= absoluteValue(exponentInput); ++i) {
             powerResults *= baseInput;
         }//for iterating to exponentInput
