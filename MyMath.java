@@ -333,10 +333,16 @@ public class MyMath {
         return totalSum;
     }
 
+    /**
+     * tangent() accepts a double primitive value representing
+     * an angle in radians. Calculates the tangent ratio of the sine()
+     * and cosine() values for the angle in radians. Returns
+     * the calculated ratio result
+     * @param angleRadians Primitive double representing an angle in radians
+     * @return Primitive double represnting the tangent of the angle.
+     */
     public static double tangent(double angleRadians) {
         double tangentValue = sine(angleRadians) / cosine(angleRadians);
         return tangentValue;
-    }
-
-
+    }//end tangent()
 }//end MyMath
